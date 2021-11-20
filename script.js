@@ -1,4 +1,4 @@
-const socket = io('http://127.0.0.1:3000/', { transports: ['websocket'] })
+const socket = io('https://alnakeeb-chat.herokuapp.com/', { transports: ['websocket'] })
 const chat = document.getElementById("chat")
 const messageInput = document.getElementById("message")
 const chatContainer = document.getElementById("chatContainer")
