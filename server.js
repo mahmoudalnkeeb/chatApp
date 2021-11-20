@@ -1,9 +1,9 @@
 const port = process.env.PORT || 3000
 var http = require('http');
 var express = require('express');
-const cors = require("cors")
+
 var app = express();
-app.use(cors())
+
 var server = http.createServer(app);
 // Pass a http.Server instance to the listen method
 var io = require('socket.io')(server);
@@ -24,9 +24,7 @@ app.use('/static', express.static('node_modules'));
 
 io.on('connection', socket => {
 
-    Msg.find().then(result => {
-        socket.emit('output-messages', result)
-    })
+   
     //new user joined the chat handling serverside
     socket.on("new-user", name => {
         users[socket.id] = name
