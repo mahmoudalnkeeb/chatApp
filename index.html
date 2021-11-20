@@ -148,6 +148,7 @@
             width: fit-content;
             margin-inline: auto;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .user{
@@ -156,15 +157,9 @@
             border: 0;
             outline: 0;
             padding: 10px 15px;
-            
-            
+            width: calc(100% - 70px);
         }
-        .label{
-            padding:calc(19px/2) 10px;
-            background-color: var(--form-back);
-            color: var(--form-color);
-           
-        }
+        
         .save{
             padding:calc(20px/2) 10px;
             background-color: var(--form-back);
@@ -195,7 +190,7 @@
     <div class="writing"></div>
     <div class="chat_container">
         <div class="user_name">
-            <label for="username" class="label">username</label>
+
             <input type="text" class="user" id="username" placeholder="enter your name">
             <button  class="save" id="save">save</button>
         </div>
