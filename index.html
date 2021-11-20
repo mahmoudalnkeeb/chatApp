@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chat with me</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="http://localhost:3000/socket.io/socket.io.js" defer></script>
+    <script src="script.js" defer></script>
+    <style>
+        @media (prefers-color-scheme: dark) {
+             :root {
+                --back: #000;
+                --color: #fff;
+                --chat-box: #262626;
+            }
+        }
+        
+        @media (prefers-color-scheme: light) {
+             :root {
+                --back: #bdc3c7;
+                --color: #000;
+                --chat-box: #ecf0f1;
+                --form-color: #fff;
+                --form-back: #262626;
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--back);
+            color: var(--color);
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+        
+        .chat_container {
+            width: 70vw;
+            height: 90vh;
+            background-color: var(--chat-box);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            position: relative;
+        }
+        
+        
+        
+        #chat {
+            position: absolute;
+            width: 80%;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #message {
+            width: 90%;
+            height: 50px;
+            margin: 0;
+            padding: 5px 15px;
+            font-size: inherit;
+            font-family: inherit;
+            border: 0;
+            background-color: var(--back);
+            outline: 0;
+        }
+        
+        #send {
+            padding: 0;
+            height: 50px;
+            width: 20%;
+            font-weight: 600;
+            margin: 0;
+            font-family: inherit;
+            border: 0;
+            background-color: var(--form-back);
+            color: var(--form-color);
+            cursor: pointer;
+        }
+        
+        /* chat styling */
+        
+        .join ,
+        .leave {
+            font-size: 0.5em;
+        }
+        .join{
+            color: #27ae60;
+        }
+        .leave{
+            color: #e74c3c;
+        }
+        .received,
+        .sent{
+            color: var(--color);
+            margin-block:5px;
+        }
+        .received{
+            direction: rtl;
+        }
+        /* chat styling end  */
+
+
+        @media screen and (max-width: 480px) {
+            .chat_container {
+                width: 95vw;
+            }
+        }
+        
+        @media screen and (max-width: 960px) {
+            .chat_container {
+                width: 80vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat_container" id="chatContainer">
+            
+        <form id="chat">
+            <input type="text" id="message" />
+            <button type="submit" id="send">send</button>
+        </form>
+    </div>
+</body>
+
+</html>
