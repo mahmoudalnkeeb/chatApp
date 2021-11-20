@@ -4,14 +4,16 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodeserver.js",
         "startDev": "nodemon server.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "cors": "^2.8.5",
         "express": "^4.17.1",
+        "mongodb": "^4.2.0",
+        "mongoose": "^6.0.13",
         "socket.io": "^4.4.0"
     },
     "devDependencies": {
