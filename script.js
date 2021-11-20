@@ -9,14 +9,15 @@ const save = document.getElementById("save")
 
 save.addEventListener("click" , ()=>{
   if (username.value){
-
     const name = username.value
     joinMessage("you joined the chat ")
     socket.emit("new-user", name)
+  }else{
+    const name = "No-Name"
+    joinMessage("you joined the chat ")
+    socket.emit("new-user", name)
   }
-  const name = "No-Name"
-  joinMessage("you joined the chat ")
-  socket.emit("new-user", name)
+  
 
 })
 
