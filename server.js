@@ -1,10 +1,29 @@
-const io = require('socket.io')(process.env.PORT || 3000)
+const port = process.env.PORT || 3000
+var http = require('http');
+var express = require('express');
+var app = express();
+
+var server = http.createServer(app);
+// Pass a http.Server instance to the listen method
+var io = require('socket.io')(server);
+
+// The server should start listening
+server.listen(port);
+
+// Register the index route of your app that returns the HTML file
+app.use(express.static('./'))
+
+
 
 const users = {}
 
+// Expose the node_modules folder as static resources (to access socket.io.js in the browser)
+app.use('/static', express.static('node_modules'));
+
+
 io.on('connection', socket => {
     //new user joined the chat handling serverside
-    socket.on("new-user" , name =>{
+    socket.on("new-user", name => {
         users[socket.id] = name
         socket.broadcast.emit('user-connected', name)
     })
@@ -19,5 +38,8 @@ io.on('connection', socket => {
     socket.on('send-chat-message', message => {
         socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
     })
-    
+
 })
+
+
+
