@@ -58,12 +58,12 @@
             border-radius: 10px;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             position: relative;
-            overflow: scroll;
+            overflow: hidden;
         }
         
         .chating{
-            width: 100;
-            height: 90%;
+            width: 100%;
+            height: 80%;
             overflow-y: scroll;
             display: flex;
             gap: 15px;
@@ -146,6 +146,35 @@
             top: 15px;
             color: #e67e22;
         }
+        .user_name{
+            width: fit-content;
+            margin-inline: auto;
+            margin-bottom: 20px;
+        }
+
+        .user{
+            background-color: var(--back);
+            color: var(--color);
+            border: 0;
+            outline: 0;
+            padding: 10px 15px;
+            
+            
+        }
+        .label{
+            padding:calc(19px/2) 10px;
+            background-color: var(--form-back);
+            color: var(--form-color);
+           
+        }
+        .save{
+            padding:calc(20px/2) 10px;
+            background-color: var(--form-back);
+            color: var(--form-color);
+            outline: 0;
+            border: 0;
+           
+        }
         /* chat styling end  */
 
 
@@ -164,14 +193,21 @@
 </head>
 
 <body>
+    
     <div class="writing"></div>
     <div class="chat_container">
+        <div class="user_name">
+            <label for="username" class="label">username</label>
+            <input type="text" class="user" id="username" placeholder="enter your name">
+            <button  class="save" id="save">save</button>
+        </div>
         <div id="chatContainer" class="chating">
             
         </div>
         <form id="chat">
             <input type="text" id="message" />
             <button type="submit" id="send">send</button>
+            
         </form>
     </div>
     

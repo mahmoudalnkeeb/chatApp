@@ -2,15 +2,36 @@ const socket = io('https://alnakeeb-chat.herokuapp.com/', { transports: ['websoc
 const chat = document.getElementById("chat")
 const messageInput = document.getElementById("message")
 const chatContainer = document.getElementById("chatContainer")
+const writing = document.querySelector(".writing")
+const username = document.getElementById("username")
+const save = document.getElementById("save")
 
-const name = prompt("Enter Your Name")
-joinMessage("you joined the chat ")
-socket.emit("new-user" , name)
+
+save.addEventListener("click" , ()=>{
+  const name = username.value
+  joinMessage("you joined the chat ")
+  socket.emit("new-user", name)
+})
+
+
+
+
+
+
+chat.addEventListener("submit", e=>{
+e.preventDefault()
+  
+  const message = messageInput.value
+  socket.emit("send-chat-message" , message)
+  sendMessage(`You: ${message} `)
+  messageInput.value = ''
+})
+
 
 
 socket.on('chat-message', data => {
-  receiveMessage(`${data.name}: ${data.message}`)
-})  
+  receiveMessage(` ${data.message}:${data.name}`)
+})
 
 socket.on('user-connected', name => {
   joinMessage(`${name} connected`)
@@ -18,15 +39,6 @@ socket.on('user-connected', name => {
 
 socket.on('user-disconnected', name => {
   leaveMessage(`${name} disconnected`)
-})
-
-
-chat.addEventListener("submit", e=>{
-e.preventDefault()
-  const message = messageInput.value
-  socket.emit("send-chat-message" , message)
-  sendMessage(`You: ${message}`)
-  messageInput.value = ''
 })
 
 
