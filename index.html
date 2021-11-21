@@ -13,15 +13,15 @@
     <script src="script.js" defer></script>
     <style>
         @media (prefers-color-scheme: dark) {
-             :root {
+            :root {
                 --back: #000;
                 --color: #fff;
                 --chat-box: #262626;
             }
         }
-        
+
         @media (prefers-color-scheme: light) {
-             :root {
+            :root {
                 --back: #bdc3c7;
                 --color: #000;
                 --chat-box: #ecf0f1;
@@ -29,13 +29,13 @@
                 --form-back: #262626;
             }
         }
-        
+
         * {
             box-sizing: border-box;
             font-family: 'Roboto Mono', monospace;
             font-size: 1rem;
         }
-        
+
         body {
             margin: 0;
             padding: 0;
@@ -47,42 +47,55 @@
             display: grid;
             place-items: center;
         }
-        
+
         .chat_container {
             width: 70vw;
             height: 90vh;
             background-color: var(--chat-box);
-            padding: 20px;
+            border: 2px solid #19f073;
             border-radius: 10px;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             position: relative;
             overflow: hidden;
         }
-        
-        .chating{
+
+        .chating {
             width: 100%;
             height: 80%;
+            padding: 10px;
             overflow-y: scroll;
             display: flex;
             gap: 15px;
             flex-direction: column;
         }
-        
-        
+
+        .chating::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .chating {
+            -ms-overflow-style: none;
+
+            scrollbar-width: none;
+
+        }
+
+
         #chat {
             position: absolute;
-            width: 80%;
-            bottom: 10px;
+            width: 100%;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            
+            border-top: 2px solid #19f073;
         }
-        
+
         #message {
-            width: 90%;
+            width: 100%;
             height: 50px;
             margin: 0;
             padding: 5px 15px;
@@ -90,9 +103,10 @@
             font-family: inherit;
             border: 0;
             background-color: var(--back);
+            color: var(--color);
             outline: 0;
         }
-        
+
         #send {
             padding: 0;
             height: 50px;
@@ -101,73 +115,102 @@
             margin: 0;
             font-family: inherit;
             border: 0;
-            background-color: var(--form-back);
-            color: var(--form-color);
+            background-color: var(--color);
+            color: var(--back);
             cursor: pointer;
         }
-        
+
         /* chat styling */
-        
-        .join ,
+
+        .join,
         .leave {
             font-size: 0.7em;
             padding: 5px 10px;
             border-radius: 10px;
             width: fit-content;
-            margin-inline:auto ;
+            margin-inline: auto;
             background-color: rgb(180, 180, 180);
         }
-        .join{
+
+        .join {
             color: #19f073;
         }
-        .leave{
+
+        .leave {
             color: #e74c3c;
         }
+
         .received,
-        .sent{
+        .sent {
             background-color: var(--back);
             padding: 10px 15px;
             width: fit-content;
             color: var(--color);
-            
-            
+
+
         }
-        .received{
+
+        .received {
             align-self: flex-end;
-           border-radius: 2px 2px 2px 10px  ;
+            margin-block: 10px;
+            border: 2px solid #00bfb6;
+            padding: 10px;
+            text-align: center;
+            font-weight: 900;
+            color: var(--color);
+            font-family: arial;
+            position: relative;
+            max-width: 40ch;
+            word-wrap: break-word
         }
-        .sent{
-            border-radius: 2px 2px 10px 2px ;
+
+        .sent {
+            margin-block: 10px;
+            border: 2px solid #00bfb6;
+            padding: 10px;
+            text-align: center;
+            font-weight: 900;
+            color: var(--color);
+            font-family: arial;
+            position: relative;
+            max-width: 40ch;
+            word-wrap: break-word
         }
-        .writing{
+
+
+
+        .writing {
             position: absolute;
             top: 15px;
             color: #e67e22;
         }
-        .user_name{
-            width: fit-content;
-            margin-inline: auto;
-            margin-bottom: 20px;
+
+        .user_name {
             width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            border-bottom: 2px solid #19f073;
         }
 
-        .user{
-            background-color: var(--back);
-            color: var(--color);
+        .user {
+            background-color: var(--color);
+            color: var(--back);
             border: 0;
             outline: 0;
             padding: 10px 15px;
-            width: calc(100% - 70px);
+            width: 80%;
         }
-        
-        .save{
-            padding:calc(20px/2) 10px;
-            background-color: var(--form-back);
+
+        .save {
+            width: 20%;
+            height: 41px;
+            background-color: var(--back);
             color: var(--form-color);
             outline: 0;
             border: 0;
-           
+
         }
+
         /* chat styling end  */
 
 
@@ -176,7 +219,7 @@
                 width: 95vw;
             }
         }
-        
+
         @media screen and (max-width: 960px) {
             .chat_container {
                 width: 80vw;
@@ -186,24 +229,24 @@
 </head>
 
 <body>
-    
+
     <div class="writing"></div>
     <div class="chat_container">
         <div class="user_name">
 
-            <input type="text" class="user" id="username" placeholder="enter your name">
-            <button  class="save" id="save">save</button>
+            <input type="text" class="user" id="username" placeholder="enter your name" autocomplete="off">
+            <button class="save" id="save">save</button>
         </div>
         <div id="chatContainer" class="chating">
-            
+
         </div>
         <form id="chat">
-            <input type="text" id="message" />
+            <input type="text" id="message" autocomplete="off" />
             <button type="submit" id="send">send</button>
-            
+
         </form>
     </div>
-    
+
 </body>
 
 </html>

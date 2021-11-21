@@ -1,5 +1,7 @@
 const port = process.env.PORT || 3000
+
 var http = require('http');
+
 var express = require('express');
 
 var app = express();
@@ -7,14 +9,12 @@ var app = express();
 var server = http.createServer(app);
 // Pass a http.Server instance to the listen method
 var io = require('socket.io')(server);
-
 // The server should start listening
 server.listen(port);
-
 // Register the index route of your app that returns the HTML file
-app.use(express.static('./'))   
+app.use(express.static('./'))
 
-
+/*-------------------------------------------server side --------------------------------------------------*/
 
 const users = {}
 
@@ -24,7 +24,11 @@ app.use('/static', express.static('node_modules'));
 
 io.on('connection', socket => {
 
-   
+    //    setInterval(() => {
+
+    //    }, 2000);
+
+
     //new user joined the chat handling serverside
     socket.on("new-user", name => {
         users[socket.id] = name
@@ -39,7 +43,7 @@ io.on('connection', socket => {
 
     //handling chat messages
     socket.on('send-chat-message', message => {
-        
+
         socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
     })
 
