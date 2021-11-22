@@ -13,7 +13,6 @@ var server = http.createServer(app);
 var io = require("socket.io")(server, {
   cors: {
     origin: [
-      "http://127.0.0.1:3000/",
       "https://alnakeeb-chat.herokuapp.com/",
       "https://admin.socket.io/",
     ],
