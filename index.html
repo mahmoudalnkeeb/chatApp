@@ -87,9 +87,20 @@
         #chat {
             position: absolute;
             width: 100%;
+            height: 100px;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top: 2px solid #19f073;
+        }
+
+        .row {
+            display: flex;
+            width: 100%;
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -97,7 +108,7 @@
         }
 
         #message {
-            width: 100%;
+            width: 80%;
             height: 50px;
             margin: 0;
             padding: 5px 15px;
@@ -121,6 +132,21 @@
             color: var(--back);
             cursor: pointer;
         }
+
+
+        #room {
+            width: 100%;
+            height: 50px;
+            margin: 0;
+            padding: 5px 15px;
+            font-size: inherit;
+            font-family: inherit;
+            border: 0;
+            background-color: var(--back);
+            color: var(--color);
+            outline: 0;
+        }
+
 
         /* chat styling */
 
@@ -148,7 +174,6 @@
             padding: 10px 15px;
             width: fit-content;
             color: var(--color);
-
 
         }
 
@@ -181,17 +206,34 @@
 
 
 
-        .writing {
-            position: absolute;
-            top: 15px;
+        #active {
             color: #e67e22;
+            width: 100%;
+            padding-block: 20px;
+            padding-left: 10px;
+            overflow-y: scroll;
+            background-color: var(--color);
+            box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        #active::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        #active {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
 
         .user_name {
             width: 100%;
-            margin-bottom: 20px;
             display: flex;
-            border-bottom: 2px solid #19f073;
+            box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
         }
 
         .user {
@@ -241,13 +283,18 @@
             <input type="text" class="user" id="username" placeholder="enter your name" autocomplete="off">
             <button class="save" id="save">save</button>
         </div>
+        <div id="active"></div>
         <div id="chatContainer" class="chating">
 
         </div>
         <form id="chat">
-            <input type="text" id="message" autocomplete="off" />
-            <button type="submit" id="send">send</button>
-
+            <div class="row">
+                <input type="text" id="message" autocomplete="off" placeholder="enter your message" />
+                <button type="submit" id="send">SEND</button>
+            </div>
+            <div class="row">
+                <input type="text" id="room" autocomplete="off" placeholder="Privete message" />
+            </div>
         </form>
     </div>
 

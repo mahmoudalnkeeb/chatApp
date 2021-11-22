@@ -3,6 +3,7 @@ const port = process.env.PORT || 3000
 var http = require('http');
 
 var express = require('express');
+const { log } = require('console');
 
 var app = express();
 
@@ -24,15 +25,14 @@ app.use('/static', express.static('node_modules'));
 
 io.on('connection', socket => {
 
-    //    setInterval(() => {
 
-    //    }, 2000);
 
 
     //new user joined the chat handling serverside
     socket.on("new-user", name => {
         users[socket.id] = name
         socket.broadcast.emit('user-connected', name)
+
     })
 
     //new user leaved the chat handling serverside
@@ -42,12 +42,13 @@ io.on('connection', socket => {
     })
 
     //handling chat messages
-    socket.on('send-chat-message', message => {
+    socket.on('send-chat-message', (message, room) => {
 
-        socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
+        if (room == '') {
+            socket.broadcast.emit('chat-message', { message: message, name: users[socket.id], room: room })
+        } else {
+            socket.broadcast.to(room).emit('chat-message', { message: message, name: users[socket.id], room: room })
+        }
     })
 
 })
-
-
-

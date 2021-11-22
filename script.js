@@ -5,23 +5,47 @@ const chatContainer = document.getElementById("chatContainer")
 const writing = document.querySelector(".writing")
 const username = document.getElementById("username")
 const save = document.getElementById("save")
+const activeStat = document.getElementById("active")
+const room = document.getElementById("room").value
 
+
+const activeUsers = []
 
 
 save.addEventListener("click", () => {
   const name = username.value
-  joinMessage("you joined the chat ")
-  socket.emit("new-user", name)
+  if (activeUsers.includes(name)) {
+    console.log("already connected")
+    console.log(activeUsers)
+  } else {
+    activeUsers.push(name)
+    console.log(activeUsers)
+    joinMessage("you joined the chat ")
+    socket.emit("new-user", name)
+  }
 })
 
 //user join and leave handel
 
+
+
 socket.on('user-connected', name => {
+
+
+  activeUsers.push(name)
+  console.log(activeUsers)
   joinMessage(`${name} connected`)
+
+
 })
 
 socket.on('user-disconnected', name => {
+
   leaveMessage(`${name} disconnected`)
+  const rm = activeUsers.indexOf(name)
+  activeUsers.splice(rm, 1)
+  console.log(activeUsers)
+
 })
 
 //send messages handeling
@@ -30,7 +54,7 @@ chat.addEventListener("submit", e => {
   e.preventDefault()
 
   const message = messageInput.value
-  socket.emit("send-chat-message", message)
+  socket.emit("send-chat-message", message, room)
   console.log(message)
   sendMessage(`You: ${message} `)
   messageInput.value = ''
@@ -40,6 +64,7 @@ chat.addEventListener("submit", e => {
 //receive messages throught socket handeling
 
 socket.on('chat-message', data => {
+  console.log(data.room)
 
   if (data.name) {
     const name = data.name
@@ -113,4 +138,3 @@ function receiveMessage(message) {
   }, 1000)
 
 }
-
